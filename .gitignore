@@ -1,3 +1,6 @@
+#   <base href="/mhi_pred_app/build/web/">
+
+
 # Miscellaneous
 *.class
 *.log

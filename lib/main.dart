@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:mhi_pred_app/chatbot/chat_window.dart';
+// import './chatbot/chat_window.dart'
 void main() {
   runApp(const MyApp());
 }
@@ -31,7 +32,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const ChatWindowPage(),
+
     );
   }
 }
