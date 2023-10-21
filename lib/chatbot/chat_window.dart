@@ -12,7 +12,11 @@ import 'package:mhi_pred_app/chatbot/widgets/messages/text_format.dart';
 class ChatWindowPage extends StatefulWidget {
   final UserModel? user;
 
-  const ChatWindowPage({Key? key, this.user,}) : super(key: key);
+  const ChatWindowPage(
+    Map<UserModel, UserModel> map, {
+    Key? key,
+    this.user,
+  }) : super(key: key);
 
   @override
   _ChatWindowPageState createState() => _ChatWindowPageState();
@@ -21,8 +25,9 @@ class ChatWindowPage extends StatefulWidget {
 class _ChatWindowPageState extends State<ChatWindowPage> {
   initState() {
     super.initState();
-   
-      sendMessage(widget.user!, "context", "Hi ,you can answer me anything from the paragraph...", "0");
+
+    sendMessage(widget.user!, "context",
+        "Hi ,you can answer me anything from the paragraph...", "0");
   }
 
   bool isExpanded = false;
@@ -224,7 +229,7 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                         onChanged: (value) {},
                         onSubmitted: (value) {
                           messageTextController.clear();
-                          String context="context";
+                          String context = "context";
                           sendMessage(widget.user!, context, value, "1");
                         },
                         decoration: const InputDecoration.collapsed(
@@ -241,7 +246,7 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                       onPressed: () {
                         String value = messageTextController.text;
                         // String context= contextTextController.text;
-                        String context='context';
+                        String context = 'context';
                         messageTextController.clear();
                         sendMessage(widget.user!, context, value, "1");
                       },

@@ -63,6 +63,32 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/svgs/
+    # - assets/bg/galaxy_comp.gif
+    # - assets/qx_logo.png
+    # - assets/qx_bl.png
+    # - assets/qx_blw.png
+    # - assets/token.png
+    # - assets/qx_logo_round.jpg
+    # - assets/qx-logo-1r.png
+
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/open-sans.ttf
+    - family: RobotoMedium
+      fonts:
+        - asset: assets/fonts/Roboto-Medium.ttf
+    - family: RobotoRegular
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Medium.ttf
+    - family: Horizon
+      fonts:
+        - asset: assets/fonts/Horizon.otf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
