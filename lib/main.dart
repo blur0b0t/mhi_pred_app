@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:mhi_pred_app/chatbot/chat_window.dart';
 import 'package:mhi_pred_app/chatbot/models/user_main.dart';
+import 'package:firebase_core/firebase_core.dart';
 // import './chatbot/chat_window.dart'
 
+var coll_name='mhi_pred_app';
 final UserModel user = UserModel(uid: "mhi_pred", name: "mhi");
 
-void main() {
+// var firebaseConfig = {
+//   apiKey: "AIzaSyD5ndkXBa_CSC5biea5Cg-_mp28-1zUmHs",
+//   authDomain: "mh-pred-app.firebaseapp.com",
+//   projectId: "mh-pred-app",
+//   storageBucket: "mh-pred-app.appspot.com",
+//   messagingSenderId: "787397179428",
+//   appId: "1:787397179428:web:2cb8c249b8d0c3a2bc80b1",
+//   measurementId: "G-DGR27SVWBP"
+// };
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey: "AIzaSyD5ndkXBa_CSC5biea5Cg-_mp28-1zUmHs",
+        authDomain: "mh-pred-app.firebaseapp.com",
+        projectId: "mh-pred-app",
+        storageBucket: "mh-pred-app.appspot.com",
+        messagingSenderId: "787397179428",
+        appId: "1:787397179428:web:2cb8c249b8d0c3a2bc80b1",
+        measurementId: "G-DGR27SVWBP"),
+  );
   runApp(const MyApp());
 }
 
@@ -15,35 +38,35 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChatWindowPage({
-      user: user,
-    });
-    // return MaterialApp(
-    //   title: 'Flutter Demo',
-    //   theme: ThemeData(
-    //     // This is the theme of your application.
-    //     //
-    //     // TRY THIS: Try running your application with "flutter run". You'll see
-    //     // the application has a purple toolbar. Then, without quitting the app,
-    //     // try changing the seedColor in the colorScheme below to Colors.green
-    //     // and then invoke "hot reload" (save your changes or press the "hot
-    //     // reload" button in a Flutter-supported IDE, or press "r" if you used
-    //     // the command line to start the app).
-    //     //
-    //     // Notice that the counter didn't reset back to zero; the application
-    //     // state is not lost during the reload. To reset the state, use hot
-    //     // restart instead.
-    //     //
-    //     // This works for code too, not just values: Most code changes can be
-    //     // tested with just a hot reload.
-    //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-    //     useMaterial3: true,
-    //   ),
-    //   // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    //   home: ChatWindowPage({
-    //     user: user,
-    //   }),
-    // );
+    // return ChatWindowPage({
+    //   user: user,
+    // });
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // TRY THIS: Try running your application with "flutter run". You'll see
+        // the application has a purple toolbar. Then, without quitting the app,
+        // try changing the seedColor in the colorScheme below to Colors.green
+        // and then invoke "hot reload" (save your changes or press the "hot
+        // reload" button in a Flutter-supported IDE, or press "r" if you used
+        // the command line to start the app).
+        //
+        // Notice that the counter didn't reset back to zero; the application
+        // state is not lost during the reload. To reset the state, use hot
+        // restart instead.
+        //
+        // This works for code too, not just values: Most code changes can be
+        // tested with just a hot reload.
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: ChatWindowPage(
+        user: user,
+      ),
+    );
   }
 }
 

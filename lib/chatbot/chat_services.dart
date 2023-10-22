@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mhi_pred_app/chatbot/models/user_main.dart';
+import 'package:mhi_pred_app/main.dart';
 import './models/message_model.dart';
 
 var _db = FirebaseFirestore.instance;
 
-
-Stream<List<MessageModel>> streamMessages() {
+Stream<List<MessageModel>> streamMessages(UserModel user) {
     var ref =
-        _db.collection('mhi_chatbot').doc('mhi_cb').collection('allMessages');
+        _db.collection(coll_name).doc(user.uid).collection('allMessages');
     // int len=await ref.snapshots().length;
     // debugPrint(len);
     return ref.snapshots().map((list) => list.docs.map((doc) {
@@ -29,14 +29,14 @@ void sendMessage(
   message.rType = rType;
   message.timestamp = Timestamp.now();
   message.message = txt;
+  // _db
+  //     .collection(coll_name)
+  //     .doc(user.uid)
+  //     .collection('userMessages')
+  //     .doc(message.timestamp.millisecondsSinceEpoch.toString())
+  //     .set(message.getMap());
   _db
-      .collection('chatbot')
-      .doc(user.uid)
-      .collection('userMessages')
-      .doc(message.timestamp.millisecondsSinceEpoch.toString())
-      .set(message.getMap());
-  _db
-      .collection('chatbot')
+      .collection(coll_name)
       .doc(user.uid)
       .collection('allMessages')
       .doc(message.timestamp.millisecondsSinceEpoch.toString())

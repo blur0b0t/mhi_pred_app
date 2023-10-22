@@ -12,11 +12,7 @@ import 'package:mhi_pred_app/chatbot/widgets/messages/text_format.dart';
 class ChatWindowPage extends StatefulWidget {
   final UserModel? user;
 
-  const ChatWindowPage(
-    Map<UserModel, UserModel> map, {
-    Key? key,
-    this.user,
-  }) : super(key: key);
+  const ChatWindowPage({Key? key, this.user}) : super(key: key);
 
   @override
   _ChatWindowPageState createState() => _ChatWindowPageState();
@@ -25,9 +21,9 @@ class ChatWindowPage extends StatefulWidget {
 class _ChatWindowPageState extends State<ChatWindowPage> {
   initState() {
     super.initState();
-
-    sendMessage(widget.user!, "context",
-        "Hi ,you can answer me anything from the paragraph...", "0");
+    //
+    // sendMessage(widget.user!, "context",
+    //     "Hi ,you can answer me anything from the paragraph...", "0");
   }
 
   bool isExpanded = false;
@@ -36,6 +32,7 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
 
   @override
   Widget build(BuildContext context) {
+    var collName='mhi_pred_app';
     double statusBarHeight = MediaQuery.of(context).padding.top;
     double bottomBarHeight = MediaQuery.of(context).padding.bottom;
     // ScreenUtil.init(
@@ -104,8 +101,10 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                                   child: PaginateFirestore(
                                 // itemsPerPage: 15,
                                 query: FirebaseFirestore.instance
-                                    .collection('chatbot')
+                                    .collection(collName)
                                     .doc(widget.user!.uid)
+                                // .doc('mhi_pred')
+
                                     .collection('allMessages')
                                     .orderBy('timestamp', descending: true),
                                 //Change types accordingly
@@ -127,6 +126,9 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                                 //           int index) {
                                 itemBuilder:
                                     (context, documentSnapshots, index) {
+                                  if(documentSnapshots.length==0){
+                                    return Text("not found");
+                                  }
                                   DocumentSnapshot doc =
                                       documentSnapshots[index];
                                   final MessageModel message =
