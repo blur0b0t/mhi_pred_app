@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:js_interop';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mhi_pred_app/chatbot/models/user_main.dart';
 import 'package:mhi_pred_app/main.dart';
 import './models/message_model.dart';
+import 'package:http/http.dart' as http;
 
 var _db = FirebaseFirestore.instance;
 
@@ -19,10 +23,11 @@ Stream<List<MessageModel>> streamMessages(UserModel user) {
 //   return const Stream.empty();
 }
 
-void sendMessage(UserModel user, context, String txt, String rType) {
+void sendMessage(UserModel user, context, String txt, String rType) async {
   if (txt.isEmpty) return;
   MessageModel message = MessageModel(timestamp: Timestamp.now());
-  message.senderId = rType=='0'?"chatbot@red":"${user.name?.split(' ')[0]}@red";
+  message.senderId =
+      rType == '0' ? "chatbot@red" : "${user.name?.split(' ')[0]}@red";
   message.rType = rType;
   message.timestamp = Timestamp.now();
   message.message = txt;
@@ -35,17 +40,20 @@ void sendMessage(UserModel user, context, String txt, String rType) {
       .set(message.getMap());
 
   // -------------chatbot response
-  if(rType=='0')
-  return;
+  if (rType == '0') return;
 
-  var request_body={
-    'input':context,
-    'instruction':txt,
+  final queryParameters = {
+    'input': context,
+    'instruction': txt,
   };
-  // var response=response from Api
-  // txt=response['output']
+  final uri = Uri.https('http://127.0.0.1:5000', '/predict', queryParameters);
+  final response = await http.get(
+    uri,
+  );
 
-  txt='chatbot respone.......';
+  txt = jsonDecode(response.body)['output'];
+
+  // txt='chatbot respone.......';
   message = MessageModel(timestamp: Timestamp.now());
   message.senderId = 'chatbot' + "@red";
   message.rType = rType;
@@ -58,6 +66,4 @@ void sendMessage(UserModel user, context, String txt, String rType) {
       .collection('allMessages')
       .doc(message.timestamp.millisecondsSinceEpoch.toString())
       .set(message.getMap());
-
-
 }

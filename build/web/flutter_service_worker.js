@@ -22,10 +22,10 @@ const RESOURCES = {"assets/assets/svgs/hill2.svg": "1c58747fbb4b543614f7d9f89455
 "assets/shaders/ink_sparkle.frag": "4096b5150bac93c41cbc9b45276bd90f",
 "assets/FontManifest.json": "0d2363bbf2f9df5a088febadf6a7fd83",
 "assets/AssetManifest.bin.json": "81b1856e79f40d4ec120b3a14f404892",
-"assets/NOTICES": "708842483f0eb8bc9398de3950a776d9",
+"assets/NOTICES": "d5565bd8316a950b4cefda2cef0b77a0",
 "manifest.json": "606ad694206b0fd5e4b1b41a96d92f5f",
-"index.html": "87264a361e6a8a14f3469283582e45eb",
-"/": "87264a361e6a8a14f3469283582e45eb",
+"index.html": "fc7c153627b82a700fb1a02595d4e89e",
+"/": "fc7c153627b82a700fb1a02595d4e89e",
 "flutter.js": "7d69e653079438abfbb24b82a655b0a4",
 "version.json": "a914146f7c56b60a5f50207edd5a6ad5",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
@@ -39,7 +39,7 @@ const RESOURCES = {"assets/assets/svgs/hill2.svg": "1c58747fbb4b543614f7d9f89455
 "canvaskit/chromium/canvaskit.wasm": "ac6446f753316635b4290bf767d4eb23",
 "canvaskit/canvaskit.js": "eb8797020acdbdf96a12fb0405582c1b",
 "canvaskit/canvaskit.wasm": "3b0c5a669e87a380eee13c0fabfa0667",
-"main.dart.js": "b1bdca2d090b23b9ec62f408827901d2",
+"main.dart.js": "186aad5f7a3529a4291b70be130f990b",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796"};
 // The application shell files that are downloaded before a service worker can
 // start.
