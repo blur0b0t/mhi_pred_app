@@ -22,17 +22,19 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
   initState() {
     super.initState();
     //
-    // sendMessage(widget.user!, "context",
-    //     "Hi ,you can answer me anything from the paragraph...", "0");
+    sendMessage(widget.user!, "context",
+        "Hi ,Please paste the paragraph in the context window and then type you question in the below text field...", "0");
   }
 
   bool isExpanded = false;
   double composeHeight = 150000;
   TextEditingController messageTextController = new TextEditingController();
+  TextEditingController contextTextController = new TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
-    var collName='mhi_pred_app';
+    var collName = 'mhi_pred_app';
     double statusBarHeight = MediaQuery.of(context).padding.top;
     double bottomBarHeight = MediaQuery.of(context).padding.bottom;
     // ScreenUtil.init(
@@ -43,6 +45,8 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
     final width = size.width;
     final height = size.height - statusBarHeight - bottomBarHeight;
     final sheight = size.height;
+    final swidth = size.width;
+
     // final sheight=ScreenUtil().screenHeight;
     composeHeight = height * 0.1;
     ScrollController _scrollController =
@@ -66,120 +70,142 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                       SizedBox(
                         height: 20,
                       ),
-                      // Container(
-                      //         height: 45,
-                      //         child: value.selectedIdCount > 0
-                      //             ? value.selectedIdCount > 1
-                      //                 ? MultiSelectChatBar()
-                      //                 : SingleSelectChartBar(
-                      //                     value.singleMessageForReply)
-                      //             : ChatBar(
-                      //                 userName: widget.name,
-                      //               ));
-                      //   },
-                      // ),
+                     
                       SizedBox(
                         height: 10,
                       ),
 
                       Expanded(
-                        child: Container(
-                          // height: isExpanded
-                          //     ? height - composeHeight - 10 - 45 - 80 - 40
-                          //     : height - composeHeight - 10 - 45 - 80 - 40,
-                          // height: sheight - composeHeight*2.8,
-                          // width: width,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(40),
-                                  topLeft: Radius.circular(40))),
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 20),
-                              child: SizedBox(
-                                  //height: MediaQuery.of(context).size.height - 250,
+                        child:Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [ Container(
+                           width:swidth*0.4,
+                                        height:sheight,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(40),
+                                    // topLeft: Radius.circular(40)
+                                    )),
+                            child:   Padding(
+                                  padding: EdgeInsets.only(top: 20),
+                                  child: SizedBox(
+                                    //height: MediaQuery.of(context).size.height - 250,
+                                    child: SizedBox(
+                                      // width:swidth*0.4,
+                                        // height:sheight,
+
+                                      child: TextField(
+                                       maxLines :null,
+                                       keyboardType: TextInputType.multiline,
+                                        controller: contextTextController,
+                                        textCapitalization:
+                                            TextCapitalization.sentences,
+                                        onChanged: (value) {},
+                                        // onSubmitted: (value) {
+                                        //   messageTextController.clear();
+                                        //   String context = "context";
+                                        //   sendMessage(widget.user!, context,
+                                        //       value, "1");
+                                        // },
+                                        decoration:
+                                            const InputDecoration.collapsed(
+                                          hintText: 'Enter context',
+                                        ),
+                                      ),
+                                    ),
+                                  )),),
+                                  const SizedBox(width:10),
+                                  
+                                  
+                                  Container(
+                                    height: sheight,
+                                    width: swidth*0.59,
+                          
+                          
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(40),
+                                    topLeft: Radius.circular(40))),
+                            child:   Column(children: [  SizedBox(
+                                      // width:swidth*0.6,
+                                      height: sheight*0.7,
+                                      child:                      Padding(
+                                  padding: EdgeInsets.only(top: 20,right: 20,left: 20),
                                   child: PaginateFirestore(
-                                // itemsPerPage: 15,
-                                query: FirebaseFirestore.instance
-                                    .collection(collName)
-                                    .doc(widget.user!.uid)
-                                // .doc('mhi_pred')
+                                    // itemsPerPage: 15,
+                                    query: FirebaseFirestore.instance
+                                        .collection(collName)
+                                        .doc(widget.user!.uid)
+                                        // .doc('mhi_pred')
 
-                                    .collection('allMessages')
-                                    .orderBy('timestamp', descending: true),
-                                //Change types accordingly
-                                itemBuilderType: PaginateBuilderType.listView,
-                                // to fetch real-time data
-                                isLive: true,
-                                reverse: true,
-                                // stream: streamMessages(widget.user),
-                                // builder: (context, snapshot) {
-                                //   if (snapshot.hasData) {
-                                //     List<MessageModel> messages =
-                                //         snapshot.data;
-                                //     return ListView.builder(
-                                //       reverse: true,
-                                //       controller: _scrollController,
-                                //       shrinkWrap: true,
-                                //       itemCount: messages.length,
-                                //       itemBuilder: (BuildContext context,
-                                //           int index) {
-                                itemBuilder:
-                                    (context, documentSnapshots, index) {
-                                  if(documentSnapshots.length==0){
-                                    return Text("not found");
-                                  }
-                                  DocumentSnapshot doc =
-                                      documentSnapshots[index];
-                                  final MessageModel message =
-                                      MessageModel.fromFirestore(doc);
-                                  // final MessageModel message =
-                                  //     messages[messages.length -
-                                  //         index -
-                                  //         1];
-                                  final bool isMe = message.senderId ==
-                                      widget.user!.name!.split(' ')[0] +
-                                          "@QxCredit";
-                                  // if (!isMe) {
-                                  //   debugPrint(message.rType);
-                                  //   debugPrint(
-                                  //       "going to check if its action code");
-                                  //   if (message.rType.startsWith("1A"))
-                                  //     processAction(widget.user!, message,
-                                  //         widget.token, context);
-                                  // }
-
-//                                                  debugPrint("Document" +
-//                                                      message.isDocument
-//                                                          .toString());
-                                  return TextFormat(message, isMe);
-                                },
-                              )
-                                  // } else {
-                                  //   return Loading();
-                                  // }
-                                  )),
+                                        .collection('allMessages')
+                                        .orderBy('timestamp', descending: true),
+                                    //Change types accordingly
+                                    itemBuilderType:
+                                        PaginateBuilderType.listView,
+                                    // to fetch real-time data
+                                    isLive: true,
+                                    reverse: true,
+                                    // stream: streamMessages(widget.user),
+                                    // builder: (context, snapshot) {
+                                    //   if (snapshot.hasData) {
+                                    //     List<MessageModel> messages =
+                                    //         snapshot.data;
+                                    //     return ListView.builder(
+                                    //       reverse: true,
+                                    //       controller: _scrollController,
+                                    //       shrinkWrap: true,
+                                    //       itemCount: messages.length,
+                                    //       itemBuilder: (BuildContext context,
+                                    //           int index) {
+                                    itemBuilder:
+                                        (context, documentSnapshots, index) {
+                                     
+                                      DocumentSnapshot doc =
+                                          documentSnapshots[index];
+                                      final MessageModel message =
+                                          MessageModel.fromFirestore(doc);
+                                      
+                                      final bool isMe = message.senderId ==
+                                          widget.user!.name!.split(' ')[0] +
+                                              "@red";
+                                     
+                                      return TextFormat(message, isMe);
+                                    },
+                                  )
+                                     
+                                      )
                         ),
-                      ),
+                        SizedBox(
+                          width:swidth*0.6,
+                          height:sheight*0.1,
+                          child: _buildMessageComposer()
+                        
+                        )
+                        ,])
+                        ,)
+                      
 
-                      _buildMessageComposer(),
                     ],
                   ),
                 ),
-                // Positioned(
-                //   bottom: 0.0,
-                //   left: 0.0,
-                //   right: 0.0,
-                //   child: _buildMessageComposer(),
-                // ),
-
-                //_scrollController.positions.isNotEmpty?_scrollController.offset==0?
+                
               ],
             ),
           ),
         ],
-      ),
-    );
+           ))
+           
+           
+        ]
+           
+           ) );
+
+
+
+
   }
 
   _buildMessageComposer() {
@@ -231,7 +257,7 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                         onChanged: (value) {},
                         onSubmitted: (value) {
                           messageTextController.clear();
-                          String context = "context";
+                          String context = contextTextController.text;
                           sendMessage(widget.user!, context, value, "1");
                         },
                         decoration: const InputDecoration.collapsed(
@@ -248,7 +274,7 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                       onPressed: () {
                         String value = messageTextController.text;
                         // String context= contextTextController.text;
-                        String context = 'context';
+                        String context = contextTextController.text;
                         messageTextController.clear();
                         sendMessage(widget.user!, context, value, "1");
                       },

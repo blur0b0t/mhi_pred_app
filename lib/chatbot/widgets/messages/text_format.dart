@@ -13,8 +13,14 @@ class TextFormat extends StatefulWidget {
 }
 
 class _TextFormatState extends State<TextFormat> {
+   
   @override
   Widget build(BuildContext context) {
+
+     Size size = MediaQuery.of(context).size;
+   final sheight = size.height;
+    final swidth = size.width;
+
     final isMe = widget.isMe;
     final message = widget.message;
 
@@ -71,7 +77,7 @@ class _TextFormatState extends State<TextFormat> {
                           //         : Container()
                           //     : Container(),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: swidth*0.3,
                             margin: isMe
                                 ? const EdgeInsets.only(
                                     top: 8.0,

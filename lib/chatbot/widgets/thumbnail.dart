@@ -6,9 +6,9 @@ class ThumbnailChat extends StatelessWidget {
     return Align(
         alignment: Alignment.topLeft,
         child: Padding(
-            padding: const EdgeInsets.fromLTRB(108, 0, 0, 0),
+            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
             child: SizedBox(
-              height: 80,
+              height: 70,
               child: ListView.builder(
                   physics: ClampingScrollPhysics(),
                   itemCount: 3,
@@ -16,7 +16,7 @@ class ThumbnailChat extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Align(
-                      alignment: Alignment.topCenter,
+                      alignment: Alignment.topLeft,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ClipRRect(
@@ -25,7 +25,7 @@ class ThumbnailChat extends StatelessWidget {
                                 width: 50.0,
                                 height: 50,
                                 child: Image.asset(
-                                  "assets/qx-logo-1r.png",
+                                  index==1?"assets/qx-logo-1r.png":"assets/qx-logo-1r.png",
                                   fit: BoxFit.cover,
                                 ))),
                       ),
