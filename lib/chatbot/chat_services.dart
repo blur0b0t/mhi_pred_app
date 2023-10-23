@@ -46,10 +46,14 @@ void sendMessage(UserModel user, context, String txt, String rType) async {
     'input': context,
     'instruction': txt,
   };
-  final uri = Uri.https('http://127.0.0.1:5000', '/predict', queryParameters);
+  print("-----------generating uri--------------");
+  final uri = Uri.http('127.0.0.1:5000', '/predict', queryParameters);
+  print("-----------calling api------------------");
   final response = await http.get(
     uri,
   );
+  print("-----------api call succesfull------------------");
+
 
   txt = jsonDecode(response.body)['output'];
 
