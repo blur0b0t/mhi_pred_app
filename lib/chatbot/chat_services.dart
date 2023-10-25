@@ -31,6 +31,7 @@ void sendMessage(UserModel user, context, String txt, String rType) async {
   message.rType = rType;
   message.timestamp = Timestamp.now();
   message.message = txt;
+  message.context= context;
 
   _db
       .collection(coll_name)
@@ -41,33 +42,42 @@ void sendMessage(UserModel user, context, String txt, String rType) async {
 
   // -------------chatbot response
   if (rType == '0') return;
-
-  final queryParameters = {
-    'input': context,
-    'instruction': txt,
-  };
-  print("-----------generating uri--------------");
-  final uri = Uri.http('127.0.0.1:5000', '/predict', queryParameters);
-  print("-----------calling api------------------");
-  final response = await http.get(
-    uri,
-  );
-  print("-----------api call succesfull------------------");
-
-
-  txt = jsonDecode(response.body)['output'];
-
-  // txt='chatbot respone.......';
-  message = MessageModel(timestamp: Timestamp.now());
-  message.senderId = 'chatbot' + "@red";
-  message.rType = rType;
-  message.timestamp = Timestamp.now();
-  message.message = txt;
-
   _db
       .collection(coll_name)
       .doc(user.uid)
-      .collection('allMessages')
-      .doc(message.timestamp.millisecondsSinceEpoch.toString())
+      .collection('userMessages')
+      .doc('message')
       .set(message.getMap());
+
+
+  // ----------------------from python api----------------
+  //
+  // final queryParameters = {
+  //   'input': context,
+  //   'instruction': txt,
+  // };
+  // print("-----------generating uri--------------");
+  // final uri = Uri.http('127.0.0.1:5000', '/predict', queryParameters);
+  // print("-----------calling api------------------");
+  // final response = await http.get(
+  //   uri,
+  // );
+  // print("-----------api call succesfull------------------");
+  //
+  //
+  // txt = jsonDecode(response.body)['output'];
+  //
+  // // txt='chatbot respone.......';
+  // message = MessageModel(timestamp: Timestamp.now());
+  // message.senderId = 'chatbot' + "@red";
+  // message.rType = rType;
+  // message.timestamp = Timestamp.now();
+  // message.message = txt;
+  //
+  // _db
+  //     .collection(coll_name)
+  //     .doc(user.uid)
+  //     .collection('allMessages')
+  //     .doc(message.timestamp.millisecondsSinceEpoch.toString())
+  //     .set(message.getMap());
 }

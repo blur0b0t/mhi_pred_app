@@ -67,12 +67,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/svgs/
-    # - assets/bg/galaxy_comp.gif
-    # - assets/qx_logo.png
-    # - assets/qx_bl.png
-    # - assets/qx_blw.png
-    # - assets/token.png
-    # - assets/qx_logo_round.jpg
+    - assets/1api.png
+    - assets/mh.jpg
     - assets/qx-logo-1r.png
 
   fonts:

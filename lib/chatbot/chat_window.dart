@@ -78,7 +78,7 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                       Expanded(
                         child:Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [ Container(
+                          children: [ SizedBox(width:0),Container(
                            width:swidth*0.4,
                                         height:sheight,
                             decoration: BoxDecoration(
@@ -88,7 +88,7 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
                                     // topLeft: Radius.circular(40)
                                     )),
                             child:   Padding(
-                                  padding: EdgeInsets.only(top: 20),
+                                  padding: EdgeInsets.only(top: 20,),
                                   child: SizedBox(
                                     //height: MediaQuery.of(context).size.height - 250,
                                     child: SizedBox(
