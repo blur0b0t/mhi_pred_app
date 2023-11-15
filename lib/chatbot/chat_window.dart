@@ -22,8 +22,8 @@ class _ChatWindowPageState extends State<ChatWindowPage> {
   initState() {
     super.initState();
     //
-    sendMessage(widget.user!, "context",
-        "Hi ,Please paste the paragraph in the context window and then type you question in the below text field...", "0");
+    // sendMessage(widget.user!, "context",
+    //     "Hi ,Please paste the paragraph in the context window and then type you question in the below text field...", "0");
   }
 
   bool isExpanded = false;
